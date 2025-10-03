@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { validarusuario, validarEmail, validarPassword } from "../utils/validaciones";
 
 export default function Register({ setUser }) {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -13,9 +14,25 @@ export default function Register({ setUser }) {
       alert("Todos los campos son obligatorios");
       return;
     }
-    setUser(form);
+   
+
+  if (!validarusuario(form.name)) {
+        alert("El nombre debe tener al menos 3 caracteres");
+        return;
+      }
+    
+      if (!validarPassword(form.password)) {
+        alert("La contraseña debe tener al menos 6 caracteres y 2 números");
+        return;
+      }
+
+
+
+      setUser(form); //pasa al App.jsx y muestra UserInfo
   };
 
+ 
+  
   return (
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
